@@ -69,10 +69,11 @@ public class RatesFragment extends Fragment {
                 if(checkIsDifferentConfiguration()){
                     //Different Configuration
                     realmOperations = new RealmOperations();
+                    realmOperations.setActiveConfigurationsToFalse();
                     Configuration configuration = realmOperations.createNewConfiguration();
+                    configuration.setActive(true);
 
-
-
+                    realmOperations.saveConfiguration(configuration);
                 }
 
                 Snackbar mySnackbar = Snackbar.make(v.findViewById(R.id.coordinator_content), msg, Snackbar.LENGTH_LONG);
