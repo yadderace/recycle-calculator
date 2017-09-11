@@ -9,7 +9,7 @@
         <item
             android:id="@+id/opt_prices"
             android:icon="@drawable/ic_prices"
-            android:title="@string/prices" />
+            android:title="@string/rates" />
     </group>
 
     <!--<item android:title="Communicate">

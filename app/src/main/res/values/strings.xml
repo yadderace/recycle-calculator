@@ -8,7 +8,9 @@
 
 
     <!-- Menu Options -->
-    <string name="buys">Compras</string>
-    <string name="prices">Precios</string>
+    <string name="buys">Buys</string>
+    <string name="rates">Rates</string>
+    <string name="products">Products</string>
+
 
 </resources>

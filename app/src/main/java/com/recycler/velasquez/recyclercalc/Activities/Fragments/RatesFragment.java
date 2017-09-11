@@ -133,7 +133,7 @@ public class RatesFragment extends Fragment {
     }
 
     private void closeFragment(){
-        Fragment newFragment = new BuyFragment();
+        /*Fragment newFragment = new BuyFragment();
         FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
 
 
@@ -143,7 +143,7 @@ public class RatesFragment extends Fragment {
         transaction.addToBackStack(null);
 
         // Commit the transaction
-        transaction.commit();
+        transaction.commit();*/
     }
 
 
