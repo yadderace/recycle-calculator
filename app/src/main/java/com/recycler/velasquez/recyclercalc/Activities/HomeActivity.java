@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.BuyFragment;
+import com.recycler.velasquez.recyclercalc.Activities.Fragments.ProductsFragment;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.RatesFragment;
 import com.recycler.velasquez.recyclercalc.Adapters.ViewPagerAdapter;
 import com.recycler.velasquez.recyclercalc.R;
@@ -84,7 +85,7 @@ public class HomeActivity extends AppCompatActivity{
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new BuyFragment(), getResources().getString(R.string.buys));
         adapter.addFragment(new RatesFragment(), getResources().getString(R.string.rates));
-        adapter.addFragment(new RatesFragment(), getResources().getString(R.string.products));
+        adapter.addFragment(new ProductsFragment(), getResources().getString(R.string.products));
         viewPager.setAdapter(adapter);
     }
 

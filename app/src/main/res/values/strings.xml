@@ -13,4 +13,10 @@
     <string name="products">Products</string>
 
 
+    <!-- Fragment Messages -->
+    <string name="not_found_products">Not Found Products</string>
+    <string name="not_found_rates">Not Found Rates</string>
+    <string name="not_found_buys">Not Found Buys</string>
+
+
 </resources>

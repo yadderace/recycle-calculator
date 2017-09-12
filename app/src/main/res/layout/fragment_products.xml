@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinator_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
 
     <LinearLayout
         android:id="@+id/linearlayout_content"
@@ -38,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
-                android:text="@string/not_found_buys"
+                android:text="@string/not_found_products"
                 android:textSize="@dimen/fragment_not_found_message"
                 android:gravity="center"
                 android:textStyle="bold|italic"/>
@@ -67,3 +66,4 @@
 
 
 </android.support.design.widget.CoordinatorLayout>
+
