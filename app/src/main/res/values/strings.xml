@@ -11,6 +11,7 @@
     <string name="buys">Buys</string>
     <string name="rates">Rates</string>
     <string name="products">Products</string>
+    <string name="save">Save</string>
 
 
     <!-- Fragment Messages -->
@@ -18,5 +19,8 @@
     <string name="not_found_rates">Not Found Rates</string>
     <string name="not_found_buys">Not Found Buys</string>
 
+
+    <!-- Dialog Titles -->
+    <string name="title_new_product">New Product</string>
 
 </resources>

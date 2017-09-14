@@ -53,17 +53,6 @@
 
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingbutton_new_product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_plus"
-        android:clickable="true"
-        app:backgroundTint="@color/colorPrimary"
-        app:rippleColor="@color/colorAccent"/>
-
 
 </android.support.design.widget.CoordinatorLayout>
 

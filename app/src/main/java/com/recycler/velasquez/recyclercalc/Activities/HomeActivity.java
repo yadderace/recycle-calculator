@@ -2,10 +2,12 @@ package com.recycler.velasquez.recyclercalc.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,7 +16,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.recycler.velasquez.recyclercalc.Activities.Dialogs.NewProductDialog;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.BuyFragment;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.ProductsFragment;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.RatesFragment;
@@ -27,6 +31,11 @@ public class HomeActivity extends AppCompatActivity{
 
     ViewPager                   viewPager;
     TabLayout                   tabLayout;
+    FloatingActionButton        floatingbutton_new_product;
+
+    private static final int IDX_BUYS_FRAGMENT = 0;
+    private static final int IDX_RATES_FRAGMENT = 1;
+    private static final int IDX_PRODUCTS_FRAGMENT = 2;
 
     private int[] tabIcons = {
             R.drawable.ic_buys,
@@ -42,6 +51,8 @@ public class HomeActivity extends AppCompatActivity{
         activity = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        floatingbutton_new_product  = (FloatingActionButton) findViewById(R.id.floatingbutton_new_product);
+
         setSupportActionBar(toolbar);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -50,6 +61,15 @@ public class HomeActivity extends AppCompatActivity{
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+
+        floatingbutton_new_product.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int idxCurrentFragment = viewPager.getCurrentItem();
+                if(idxCurrentFragment == IDX_PRODUCTS_FRAGMENT)
+                    openNewProductDialog();
+            }
+        });
 
     }
 
@@ -93,6 +113,14 @@ public class HomeActivity extends AppCompatActivity{
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+    }
+
+    private void openNewProductDialog(){
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        NewProductDialog newFragment = new NewProductDialog();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.add(android.R.id.content, newFragment).commit();
     }
 
 
