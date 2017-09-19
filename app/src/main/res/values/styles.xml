@@ -21,4 +21,47 @@
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
+
+    <!-- ########################################################################################################## -->
+    <!-- ################################               EDIT TEEXT              ################################### -->
+
+
+    <style name="DialogEditTextStyle" parent="AppTheme">
+        <item name="android:colorControlNormal">@color/colorPrimary</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
+
+        <item name="android:colorControlActivated">@color/darkBlue</item>
+        <item name="android:colorControlHighlight">@color/darkBlue</item>
+    </style>
+
+    <style name="DialogEditTextStyleBig" parent="DialogEditTextStyle">
+        <item name="android:paddingBottom">@dimen/dialog_padding_big</item>
+        <item name="android:paddingTop">@dimen/dialog_padding_big</item>
+        <item name="android:textSize">@dimen/edittext_text_size_big</item>
+    </style>
+
+
+    <style name="DialogEditTextStyleMedium" parent="DialogEditTextStyleBig">
+        <item name="android:paddingBottom">@dimen/dialog_padding_medium</item>
+        <item name="android:paddingTop">@dimen/dialog_padding_medium</item>
+        <item name="android:textSize">@dimen/edittext_text_size_normal</item>
+    </style>
+
+
+    <!-- ########################################################################################################## -->
+    <!-- ################################       TEXT INPUT LAYOUT STYLES        ################################### -->
+
+
+    <style name="TextInputLayoutStyle" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
+
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State-->
+        <item name="colorAccent">@color/darkBlue</item>-
+        <item name="colorControlNormal">@color/darkBlue</item>
+
+        <item name="colorControlActivated">@color/darkBlue</item>
+    </style>
+
 </resources>

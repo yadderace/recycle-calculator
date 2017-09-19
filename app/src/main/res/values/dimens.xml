@@ -7,6 +7,25 @@
     <dimen name="fab_margin">16dp</dimen>
 
 
+    <!--Dialogs Dimensions -->
+    <dimen name="dialog_margin">5dp</dimen>
+    <dimen name="dialog_margin_big">10dp</dimen>
+    <dimen name="dialog_margin_normal">@dimen/dialog_margin</dimen>
+    <dimen name="dialog_margin_small">5dp</dimen>
+
+    <dimen name="dialog_padding">10dp</dimen>
+    <dimen name="dialog_padding_big">15dp</dimen>
+    <dimen name="dialog_padding_medium">@dimen/dialog_padding</dimen>
+    <dimen name="dialog_padding_small">5dp</dimen>
+
+
+    <dimen name="edittext_text_size">20dp</dimen>
+    <dimen name="edittext_text_size_big">30dp</dimen>
+    <dimen name="edittext_text_size_normal">@dimen/edittext_text_size</dimen>
+    <dimen name="edittext_text_size_small">10dp</dimen>
+
+
+
     <dimen name="fragment_not_found_message">20dp</dimen>
     <dimen name="fragment_not_found_icon">30dp</dimen>
 </resources>

@@ -23,4 +23,9 @@
     <!-- Dialog Titles -->
     <string name="title_new_product">New Product</string>
 
+
+    <!-- Dialogs' Textviews -->
+    <string name="product_name">PRODUCT NAME</string>
+    <string name="description">Description</string>
+
 </resources>
