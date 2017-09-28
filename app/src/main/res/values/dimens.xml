@@ -28,4 +28,8 @@
 
     <dimen name="fragment_not_found_message">20dp</dimen>
     <dimen name="fragment_not_found_icon">30dp</dimen>
+
+
+    <dimen name="gridview_icon_size">200dp</dimen>
+    <dimen name="gridview_padding_icon">20dp</dimen>
 </resources>

@@ -1,6 +1,7 @@
 package com.recycler.velasquez.recyclercalc.Activities.Dialogs;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -14,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.GridView;
 
+import com.recycler.velasquez.recyclercalc.Adapters.GridViewIconAdapter;
 import com.recycler.velasquez.recyclercalc.R;
 
 /**
@@ -25,16 +28,23 @@ public class NewProductDialog extends DialogFragment {
 
     private static final String TAG = "AKDialogFragment";
 
+    private Context context;
+
+    private GridView gridview_icon_selection;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.dialog_fragment_new_product, container, false);
 
+        context = this.getContext();
+
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.title_new_product));
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        gridview_icon_selection = (GridView) rootView.findViewById(R.id.gridview_icon_selection);
 
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -42,6 +52,9 @@ public class NewProductDialog extends DialogFragment {
             actionBar.setHomeAsUpIndicator(android.R.drawable.ic_menu_close_clear_cancel);
         }
         setHasOptionsMenu(true);
+
+
+        gridview_icon_selection.setAdapter(new GridViewIconAdapter(context));
         return rootView;
     }
 

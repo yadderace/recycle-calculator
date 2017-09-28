@@ -27,5 +27,6 @@
     <!-- Dialogs' Textviews -->
     <string name="product_name">PRODUCT NAME</string>
     <string name="description">Description</string>
+    <string name="select_icon">Select Icon</string>
 
 </resources>
