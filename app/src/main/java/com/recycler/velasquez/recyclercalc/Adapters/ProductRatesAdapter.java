@@ -41,7 +41,7 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
 
     @Override
     public void onBindViewHolder(PRViewHolder holder, int position) {
-        ConfigurationDetail configDetail = data.get(position);
+        /*ConfigurationDetail configDetail = data.get(position);
         Product product = configDetail.getProduct();
 
         holder.textview_product_name.setText(product.getName());
@@ -50,7 +50,7 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
 
         Resources resources = activity.getResources();
         int resourceId = resources.getIdentifier(product.getIcon(), DRAWABLE, activity.getPackageName());
-        holder.imageview_product_icon.setImageDrawable(activity.getDrawable(resourceId));
+        holder.imageview_product_icon.setImageDrawable(activity.getDrawable(resourceId));*/
     }
 
     @Override

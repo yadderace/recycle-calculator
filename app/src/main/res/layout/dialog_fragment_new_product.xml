@@ -2,7 +2,6 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -22,9 +21,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundColor"
@@ -41,15 +37,18 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinputlayout_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/TextInputLayoutStyle"
-                android:layout_margin="@dimen/dialog_margin_normal">
+                android:layout_margin="@dimen/dialog_margin_normal"
+                app:errorEnabled="true">
 
                 <EditText
-                    android:id="@+id/textview_new_product_name"
+                    android:id="@+id/edittext_new_product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters"
                     android:hint="@string/product_name"
                     android:theme="@style/DialogEditTextStyleBig"/>
 
@@ -58,13 +57,15 @@
 
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textinputlayout_product_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/TextInputLayoutStyle"
-                android:layout_margin="@dimen/dialog_margin_normal">
+                android:layout_margin="@dimen/dialog_margin_normal"
+                app:errorEnabled="true">
 
                 <EditText
-                    android:id="@+id/textview_new_product_description"
+                    android:id="@+id/edittext_new_product_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/description"

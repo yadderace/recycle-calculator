@@ -26,7 +26,6 @@ public class CustomApplication extends Application {
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(realmConfiguration);
 
-        RealmOperations.initRealmDatabase();
     }
 
     // Called by the system when the device configuration changes while your component is running.
