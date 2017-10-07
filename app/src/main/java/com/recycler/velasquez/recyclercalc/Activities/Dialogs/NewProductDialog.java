@@ -20,12 +20,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.recycler.velasquez.recyclercalc.Adapters.GridViewIconAdapter;
 import com.recycler.velasquez.recyclercalc.Models.Product;
 import com.recycler.velasquez.recyclercalc.R;
+import com.recycler.velasquez.recyclercalc.ViewHolders.IconViewHolder;
 
 /**
  * Created by yadder on 9/13/17.
@@ -46,6 +49,8 @@ public class NewProductDialog extends DialogFragment {
                                 textinputlayout_product_description;
 
     private InputMethodManager  inputMethodManager;
+
+    private int                 selectedPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +80,13 @@ public class NewProductDialog extends DialogFragment {
         setHasOptionsMenu(true);
 
         gridview_icon_selection.setAdapter(new GridViewIconAdapter(context));
+        gridview_icon_selection.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
+        gridview_icon_selection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedPosition = i;
+            }
+        });
 
         edittext_new_product_name.addTextChangedListener(new TextWatcher() {
             @Override

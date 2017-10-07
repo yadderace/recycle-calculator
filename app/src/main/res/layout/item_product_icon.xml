@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout android:id="@+id/framelayout_product_icon"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/gridview_padding_icon">
 
     <ImageView
-        android:id="@+id/imageview_icon_image"
+        android:id="@+id/imageview_product_icon"
         android:layout_width="@dimen/gridview_icon_size"
         android:layout_height="@dimen/gridview_icon_size"
         android:layout_gravity="center"
         android:src="@drawable/ic_aluminum"/>
+
+    <ImageView
+        android:id="@+id/imageview_product_selected_icon"
+        android:layout_width="@dimen/gridview_icon_selectec_size"
+        android:layout_height="@dimen/gridview_icon_selectec_size"
+        android:layout_gravity="top|right"
+        android:visibility="gone"
+        android:src="@drawable/ic_check"/>
 
 </FrameLayout>
