@@ -107,4 +107,12 @@ public class GridViewIconAdapter extends BaseAdapter{
 
         };
     }
+
+    /**
+     * Return id of the selected icon
+     * @return
+     */
+    public Integer getIconSelectedId(){
+        return (selected != NONE)? selected: null;
+    }
 }

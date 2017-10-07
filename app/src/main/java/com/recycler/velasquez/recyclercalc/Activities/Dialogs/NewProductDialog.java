@@ -1,10 +1,14 @@
 package com.recycler.velasquez.recyclercalc.Activities.Dialogs;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -40,17 +44,20 @@ public class NewProductDialog extends DialogFragment {
 
     private Context context;
 
-    private GridView gridview_icon_selection;
+    private GridView                gridview_icon_selection;
 
-    private EditText   edittext_new_product_name,
-                       edittext_new_product_description;
+    private EditText                edittext_new_product_name,
+                                    edittext_new_product_description;
 
-    private TextInputLayout     textinputlayout_product_name,
-                                textinputlayout_product_description;
+    private TextInputLayout         textinputlayout_product_name,
+                                    textinputlayout_product_description;
 
-    private InputMethodManager  inputMethodManager;
+    private InputMethodManager      inputMethodManager;
 
-    private int                 selectedPosition;
+    private GridViewIconAdapter     gridViewIconAdapter;
+
+    private CoordinatorLayout       coordinatorlayout_add_product_content;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +75,7 @@ public class NewProductDialog extends DialogFragment {
         edittext_new_product_description = (EditText) rootView.findViewById(R.id.edittext_new_product_description);
         textinputlayout_product_name = (TextInputLayout) rootView.findViewById(R.id.textinputlayout_product_name);
         textinputlayout_product_description = (TextInputLayout) rootView.findViewById(R.id.textinputlayout_product_description);
+        coordinatorlayout_add_product_content = (CoordinatorLayout) rootView.findViewById(R.id.coordinatorlayout_add_product_content);
 
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -79,14 +87,10 @@ public class NewProductDialog extends DialogFragment {
         }
         setHasOptionsMenu(true);
 
-        gridview_icon_selection.setAdapter(new GridViewIconAdapter(context));
+        gridViewIconAdapter = new GridViewIconAdapter(context);
+        gridview_icon_selection.setAdapter(gridViewIconAdapter);
         gridview_icon_selection.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
-        gridview_icon_selection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedPosition = i;
-            }
-        });
+
 
         edittext_new_product_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -170,7 +174,7 @@ public class NewProductDialog extends DialogFragment {
 
         if(!isValidName(productName)){
             textinputlayout_product_name.setError(getString(R.string.error_product_name_invalid));
-            edittext_new_product_name.requestFocus();
+            //edittext_new_product_name.requestFocus();
             inputMethodManager.showSoftInput(edittext_new_product_name, InputMethodManager.SHOW_IMPLICIT);
             return  false;
         }
@@ -181,6 +185,19 @@ public class NewProductDialog extends DialogFragment {
             inputMethodManager.showSoftInput(edittext_new_product_description, InputMethodManager.SHOW_IMPLICIT);
             return false;
         }
+
+
+        if(gridViewIconAdapter.getIconSelectedId() == null){
+            if (inputMethodManager.isActive())
+                inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); // hide
+
+            gridview_icon_selection.requestFocus();
+
+            Snackbar snackbar = Snackbar.make(coordinatorlayout_add_product_content, getString(R.string.error_product_not_selected_icon), Snackbar.LENGTH_LONG);
+            snackbar.show();
+            return false;
+        }
+
         return true;
     }
 
