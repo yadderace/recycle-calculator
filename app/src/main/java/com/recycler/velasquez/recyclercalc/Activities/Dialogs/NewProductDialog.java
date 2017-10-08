@@ -1,18 +1,18 @@
 package com.recycler.velasquez.recyclercalc.Activities.Dialogs;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,15 +24,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import com.recycler.velasquez.recyclercalc.Adapters.GridViewIconAdapter;
+import com.recycler.velasquez.recyclercalc.Interfaces.OnCompleteSaveProductDialog;
 import com.recycler.velasquez.recyclercalc.Models.Product;
 import com.recycler.velasquez.recyclercalc.R;
-import com.recycler.velasquez.recyclercalc.ViewHolders.IconViewHolder;
+import com.recycler.velasquez.recyclercalc.Utilities.Constants;
+import com.recycler.velasquez.recyclercalc.Utilities.RealmOperations;
 
 /**
  * Created by yadder on 9/13/17.
@@ -42,29 +42,35 @@ public class NewProductDialog extends DialogFragment {
 
     private static final String TAG = "AKDialogFragment";
 
-    private Context context;
+    private Context                 context;
 
     private GridView                gridview_icon_selection;
-
     private EditText                edittext_new_product_name,
                                     edittext_new_product_description;
-
     private TextInputLayout         textinputlayout_product_name,
                                     textinputlayout_product_description;
+    private CoordinatorLayout       coordinatorlayout_add_product_content;
+
 
     private InputMethodManager      inputMethodManager;
 
     private GridViewIconAdapter     gridViewIconAdapter;
 
-    private CoordinatorLayout       coordinatorlayout_add_product_content;
+    private OnCompleteSaveProductDialog onCompleteSaveProductDialog;
 
+    private DialogFragment          dialogFragment;
+
+    public void setOnCompleteSaveProductDialog(OnCompleteSaveProductDialog onCompleteSaveProductDialog){
+        this.onCompleteSaveProductDialog = onCompleteSaveProductDialog;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.dialog_fragment_new_product, container, false);
 
-        context = this.getContext();
+        dialogFragment = this;
+        context = dialogFragment.getContext();
         inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
@@ -145,19 +151,15 @@ public class NewProductDialog extends DialogFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        //Save the product
         if (id == R.id.action_save) {
-            // handle confirmation button click here
             if(checkData())
-            {
-                //TODO Save the product
-
-                //TODO Show message dialog, save success
-
-            }
+                saveProduct();
             return true;
+
+            //Close the dialog
         } else if (id == android.R.id.home) {
-            // handle close button click here
-            dismiss();
+            dialogFragment.dismiss();
             return true;
         }
 
@@ -174,7 +176,7 @@ public class NewProductDialog extends DialogFragment {
 
         if(!isValidName(productName)){
             textinputlayout_product_name.setError(getString(R.string.error_product_name_invalid));
-            //edittext_new_product_name.requestFocus();
+            edittext_new_product_name.requestFocus();
             inputMethodManager.showSoftInput(edittext_new_product_name, InputMethodManager.SHOW_IMPLICIT);
             return  false;
         }
@@ -218,6 +220,47 @@ public class NewProductDialog extends DialogFragment {
      */
     private boolean isValidDescription(String description){
         return description.length() > 0;
+    }
+
+    public  void saveProduct(){
+        final String productName  = edittext_new_product_name.getText().toString();
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setTitle(getString(R.string.title_new_product));
+        alertDialogBuilder
+                .setMessage(getString(R.string.message_you_will_save_product) + Constants.SPACE + productName + Constants.QUESTION_MARK)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        Product newProduct =  new Product();
+                        newProduct.setName(productName);
+                        newProduct.setDescription(edittext_new_product_description.getText().toString());
+                        newProduct.setIcon(gridViewIconAdapter.getIconSelectedId());
+
+                        RealmOperations realmOperations = new RealmOperations();
+                        realmOperations.saveProduct(newProduct);
+
+                        onCompleteSaveProductDialog.onComplete(true);
+                        dialogFragment.dismiss();
+
+                    }
+                })
+                .setNegativeButton(android.R.string.no,new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context,R.color.colorPrimary));
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(context,R.color.lightRed));
+            }
+        });
+        alertDialog.show();
     }
 
 }

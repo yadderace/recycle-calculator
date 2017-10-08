@@ -17,15 +17,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.recycler.velasquez.recyclercalc.Activities.Dialogs.NewProductDialog;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.BuyFragment;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.ProductsFragment;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.RatesFragment;
 import com.recycler.velasquez.recyclercalc.Adapters.ViewPagerAdapter;
+import com.recycler.velasquez.recyclercalc.Interfaces.OnCompleteSaveProductDialog;
 import com.recycler.velasquez.recyclercalc.R;
 
-public class HomeActivity extends AppCompatActivity{
+public class HomeActivity extends AppCompatActivity implements OnCompleteSaveProductDialog{
 
     AppCompatActivity           activity;
 
@@ -101,6 +103,10 @@ public class HomeActivity extends AppCompatActivity{
     }
 
 
+    /**
+     * Set up the view pager for the application
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new BuyFragment(), getResources().getString(R.string.buys));
@@ -109,19 +115,32 @@ public class HomeActivity extends AppCompatActivity{
         viewPager.setAdapter(adapter);
     }
 
+    /**
+     * Set up the tabs for the application
+     */
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
+    /**
+     * Open the dialog fragment for create and save a new product
+     */
     private void openNewProductDialog(){
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
+
         NewProductDialog newFragment = new NewProductDialog();
+        newFragment.setOnCompleteSaveProductDialog(this);
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.add(android.R.id.content, newFragment).commit();
     }
 
 
+    @Override
+    public void onComplete(boolean newProduct) {
+        Toast.makeText(this, "Producto Guardado" + String.valueOf(newProduct), Toast.LENGTH_LONG);
+    }
 }

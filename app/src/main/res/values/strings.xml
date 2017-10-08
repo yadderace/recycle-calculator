@@ -23,6 +23,8 @@
     <!-- Dialog Titles -->
     <string name="title_new_product">New Product</string>
 
+    <!-- Dialog Messagees -->
+    <string name="message_you_will_save_product">You will save the product</string>
 
     <!-- Dialogs' Textviews -->
     <string name="product_name">PRODUCT NAME</string>
