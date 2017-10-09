@@ -6,8 +6,10 @@ import com.recycler.velasquez.recyclercalc.Models.Product;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
@@ -85,6 +87,19 @@ public class RealmOperations {
             product = realm.copyFromRealm(realmProduct);
         }
         return product;
+    }
+
+    /**
+     * Find the registered products in the realm database
+     * @return
+     */
+    public ArrayList<Product> getAllProducts(){
+        List<Product> products = null;
+        RealmResults<Product> realmProducts = realm.where(Product.class).findAll();
+        if(realmProducts != null){
+            products = realm.copyFromRealm(realmProducts);
+        }
+        return (ArrayList<Product>) products;
     }
 
     // ##############################################################################################
@@ -197,11 +212,7 @@ public class RealmOperations {
         });
     }
 
-    /**
-     * Find and return a configuration according the recId
-     * @param configurationRecId
-     * @return
-     */
+
     public ConfigurationDetail getConfigurationDetail(int configurationDetailRecId){
         ConfigurationDetail configurationDetail = null;
         ConfigurationDetail realmConfigurationDetail = realm.where(ConfigurationDetail.class).equalTo("recId", configurationDetailRecId).findFirst();

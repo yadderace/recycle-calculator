@@ -35,6 +35,8 @@ public class HomeActivity extends AppCompatActivity implements OnCompleteSavePro
     TabLayout                   tabLayout;
     FloatingActionButton        floatingbutton_new_product;
 
+    ProductsFragment            productsFragment;
+
     private static final int IDX_BUYS_FRAGMENT = 0;
     private static final int IDX_RATES_FRAGMENT = 1;
     private static final int IDX_PRODUCTS_FRAGMENT = 2;
@@ -111,7 +113,10 @@ public class HomeActivity extends AppCompatActivity implements OnCompleteSavePro
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new BuyFragment(), getResources().getString(R.string.buys));
         adapter.addFragment(new RatesFragment(), getResources().getString(R.string.rates));
-        adapter.addFragment(new ProductsFragment(), getResources().getString(R.string.products));
+
+        productsFragment = new ProductsFragment();
+        adapter.addFragment(productsFragment, getResources().getString(R.string.products));
+
         viewPager.setAdapter(adapter);
     }
 
@@ -141,6 +146,8 @@ public class HomeActivity extends AppCompatActivity implements OnCompleteSavePro
 
     @Override
     public void onComplete(boolean newProduct) {
-        Toast.makeText(this, "Producto Guardado" + String.valueOf(newProduct), Toast.LENGTH_LONG);
+        int idxCurrentFragment = viewPager.getCurrentItem();
+            if(idxCurrentFragment == IDX_PRODUCTS_FRAGMENT)
+                productsFragment.uploadRegisteredProducts();
     }
 }
