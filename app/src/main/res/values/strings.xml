@@ -22,14 +22,17 @@
 
     <!-- Dialog Titles -->
     <string name="title_new_product">New Product</string>
+    <string name="title_new_rate">New Rate</string>
 
     <!-- Dialog Messagees -->
     <string name="message_you_will_save_product">You will save the product</string>
 
     <!-- Dialogs' Textviews -->
     <string name="product_name">PRODUCT NAME</string>
+    <string name="rate_name">RATE NAME</string>
     <string name="description">Description</string>
     <string name="select_icon">Select Icon</string>
+    <string name="select_products">Select Products</string>
 
 
     <!--Error Strings -->

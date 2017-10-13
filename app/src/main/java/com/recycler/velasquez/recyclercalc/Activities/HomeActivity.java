@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.recycler.velasquez.recyclercalc.Activities.Dialogs.NewProductDialog;
+import com.recycler.velasquez.recyclercalc.Activities.Dialogs.NewRateDialog;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.BuyFragment;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.ProductsFragment;
 import com.recycler.velasquez.recyclercalc.Activities.Fragments.RatesFragment;
@@ -72,6 +73,9 @@ public class HomeActivity extends AppCompatActivity implements OnCompleteSavePro
                 int idxCurrentFragment = viewPager.getCurrentItem();
                 if(idxCurrentFragment == IDX_PRODUCTS_FRAGMENT)
                     openNewProductDialog();
+                if(idxCurrentFragment == IDX_RATES_FRAGMENT)
+                    openNewRateDialog();
+
             }
         });
 
@@ -143,11 +147,20 @@ public class HomeActivity extends AppCompatActivity implements OnCompleteSavePro
         transaction.add(android.R.id.content, newFragment).commit();
     }
 
+    private void openNewRateDialog(){
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+
+        NewRateDialog newFragment = new NewRateDialog();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.add(android.R.id.content, newFragment).commit();
+    }
+
 
     @Override
     public void onComplete(boolean newProduct) {
         int idxCurrentFragment = viewPager.getCurrentItem();
-            if(idxCurrentFragment == IDX_PRODUCTS_FRAGMENT)
-                productsFragment.uploadRegisteredProducts();
+        if(idxCurrentFragment == IDX_PRODUCTS_FRAGMENT)
+            productsFragment.uploadRegisteredProducts();
     }
 }
