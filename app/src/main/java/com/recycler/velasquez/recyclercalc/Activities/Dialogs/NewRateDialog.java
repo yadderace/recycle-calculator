@@ -2,17 +2,14 @@ package com.recycler.velasquez.recyclercalc.Activities.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,14 +22,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.GridView;
 
-import com.recycler.velasquez.recyclercalc.Adapters.GridViewIconAdapter;
-import com.recycler.velasquez.recyclercalc.Interfaces.OnCompleteSaveProductDialog;
+import com.recycler.velasquez.recyclercalc.Adapters.ProductRatesAdapter;
 import com.recycler.velasquez.recyclercalc.Models.Product;
 import com.recycler.velasquez.recyclercalc.R;
-import com.recycler.velasquez.recyclercalc.Utilities.Constants;
 import com.recycler.velasquez.recyclercalc.Utilities.RealmOperations;
+
+import java.util.ArrayList;
 
 /**
  * Created by yadder on 9/13/17.
@@ -48,13 +44,16 @@ public class NewRateDialog extends DialogFragment {
                                     edittext_new_rate_description;
     private TextInputLayout         textinputlayout_rate_name,
                                     textinputlayout_rate_description;
+    private RecyclerView            recyclerview_products_registered;
 
 
     private InputMethodManager      inputMethodManager;
 
-
     private DialogFragment          dialogFragment;
 
+    private ProductRatesAdapter     productRatesAdapter;
+
+    private ArrayList<Product>      products;
 
 
     @Override
@@ -73,6 +72,7 @@ public class NewRateDialog extends DialogFragment {
         edittext_new_rate_description = (EditText) rootView.findViewById(R.id.edittext_new_rate_description);
         textinputlayout_rate_name = (TextInputLayout) rootView.findViewById(R.id.textinputlayout_rate_name);
         textinputlayout_rate_description = (TextInputLayout) rootView.findViewById(R.id.textinputlayout_rate_description);
+        recyclerview_products_registered = (RecyclerView) rootView.findViewById(R.id.recyclerview_products_registered);
         
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -84,6 +84,12 @@ public class NewRateDialog extends DialogFragment {
         }
         setHasOptionsMenu(true);
 
+        products = new ArrayList<Product>();
+        productRatesAdapter = new ProductRatesAdapter(products, context);
+
+        recyclerview_products_registered.setHasFixedSize(true);
+        recyclerview_products_registered.setLayoutManager(new LinearLayoutManager(context));
+        recyclerview_products_registered.setAdapter(productRatesAdapter);
 
         edittext_new_rate_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,6 +122,8 @@ public class NewRateDialog extends DialogFragment {
             public void afterTextChanged(Editable editable) {
             }
         });
+
+        loadProducts();
 
         return rootView;
     }
@@ -242,4 +250,21 @@ public class NewRateDialog extends DialogFragment {
         alertDialog.show();*/
     }
 
+
+    /**
+     * Find and load all the registered products in the phone's database
+     */
+    private void loadProducts(){
+        RealmOperations realmOperations = new RealmOperations();
+        ArrayList<Product> products = realmOperations.getAllProducts();
+        realmOperations.closeRealm();
+
+
+        if(products != null) {
+            this.products.clear();
+            this.products.addAll(products);
+        }
+
+        productRatesAdapter.notifyDataSetChanged();
+    }
 }

@@ -1,6 +1,7 @@
 package com.recycler.velasquez.recyclercalc.Adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.zagum.switchicon.SwitchIconView;
 import com.recycler.velasquez.recyclercalc.Models.ConfigurationDetail;
 import com.recycler.velasquez.recyclercalc.Models.Product;
 import com.recycler.velasquez.recyclercalc.R;
@@ -22,14 +24,14 @@ import java.util.ArrayList;
 
 public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapter.PRViewHolder> {
 
-    private ArrayList<ConfigurationDetail> data;
-    private Activity activity;
+    private ArrayList<Product> data;
+    private Context context;
     private static final String DRAWABLE  = "drawable";
 
 
-    public ProductRatesAdapter(ArrayList<ConfigurationDetail> data, Activity activity){
+    public ProductRatesAdapter(ArrayList<Product> data, Context context){
         this.data = data;
-        this.activity = activity;
+        this.context = context;
     }
 
     @Override
@@ -40,17 +42,16 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
     }
 
     @Override
-    public void onBindViewHolder(PRViewHolder holder, int position) {
-        /*ConfigurationDetail configDetail = data.get(position);
-        Product product = configDetail.getProduct();
-
+    public void onBindViewHolder(final PRViewHolder holder, int position) {
+        Product product = data.get(position);;
         holder.textview_product_name.setText(product.getName());
-        holder.textview_product_code.setText(String.valueOf(product.getRecId()));
-        holder.edittext_product_price.setText(String.valueOf(configDetail.getUnitValue()));
-
-        Resources resources = activity.getResources();
-        int resourceId = resources.getIdentifier(product.getIcon(), DRAWABLE, activity.getPackageName());
-        holder.imageview_product_icon.setImageDrawable(activity.getDrawable(resourceId));*/
+        holder.imageview_product_icon.setImageDrawable(context.getDrawable(product.getIcon()));
+        holder.switchicon_product_enabled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.switchicon_product_enabled.switchState();
+            }
+        });
     }
 
     @Override
@@ -66,17 +67,17 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
     public static class PRViewHolder extends RecyclerView.ViewHolder{
 
         TextView textview_product_name;
-        TextView textview_product_code;
         EditText edittext_product_price;
         ImageView imageview_product_icon;
+        SwitchIconView switchicon_product_enabled;
 
         public PRViewHolder(View itemView) {
             super(itemView);
 
             textview_product_name = (TextView)itemView.findViewById(R.id.textview_product_name);
-            textview_product_code = (TextView)itemView.findViewById(R.id.textview_product_code);
             edittext_product_price = (EditText)itemView.findViewById(R.id.edittext_product_price);
             imageview_product_icon = (ImageView) itemView.findViewById(R.id.imageview_product_icon);
+            switchicon_product_enabled = (SwitchIconView) itemView.findViewById(R.id.switchicon_product_enabled);
         }
     }
 }

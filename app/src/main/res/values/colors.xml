@@ -7,12 +7,15 @@
     <color name="colorAccent">#ffffff</color>
 
     <color name="darkGreen">#236923</color>
-    <color name="lightGreen">#2f8e2f</color>
+    <color name="lightGreen">#49b954</color>
+    <color name="highLightGreen">#46faac</color>
 
     <color name="darkRed">#97262a</color>
     <color name="lightRed">#ff333a</color>
 
-    <color name="lightBlue">#6f98e4</color>
+
+    <color name="highLightBlue">#79b3e6</color>
+    <color name="lightBlue">#447ade</color>
     <color name="darkBlue">#32518b</color>
 
     <color name="darkGray">#8e8e8e</color>
