@@ -18,7 +18,7 @@ public class Product extends RealmObject {
 
     private String description;
 
-    private int icon;
+    private String icon;
 
     private Date createdDateTime;
 
@@ -54,11 +54,11 @@ public class Product extends RealmObject {
         this.createdDateTime = createdDateTime;
     }
 
-    public int getIcon() {
+    public String getIcon() {
         return icon;
     }
 
-    public void setIcon(int icon) {
+    public void setIcon(String icon) {
         this.icon = icon;
     }
 }

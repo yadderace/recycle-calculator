@@ -7,4 +7,6 @@ package com.recycler.velasquez.recyclercalc.Utilities;
 public class Constants {
     public static final String SPACE = " ";
     public static final String QUESTION_MARK = "?";
+
+    public static final String DRAWABLE_DIRECTORY = "drawable";
 }

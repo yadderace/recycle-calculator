@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.recycler.velasquez.recyclercalc.Models.Product;
 import com.recycler.velasquez.recyclercalc.R;
+import com.recycler.velasquez.recyclercalc.Utilities.Constants;
 import com.recycler.velasquez.recyclercalc.ViewHolders.ProductViewHolder;
 
 import java.util.ArrayList;
@@ -39,7 +40,9 @@ public class RecyclerViewProductsAdapter extends RecyclerView.Adapter<ProductVie
 
         holder.textview_product_name.setText(product.getName());
         holder.textview_product_description.setText(product.getDescription());
-        holder.imageview_product_icon.setImageDrawable(context.getDrawable(product.getIcon()));
+        holder.imageview_product_icon.setImageDrawable(context.getDrawable(
+                context.getResources().getIdentifier(product.getIcon(), Constants.DRAWABLE_DIRECTORY, context.getPackageName())
+        ));
     }
 
     @Override

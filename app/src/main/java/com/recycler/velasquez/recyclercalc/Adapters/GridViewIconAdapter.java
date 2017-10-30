@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.recycler.velasquez.recyclercalc.R;
+import com.recycler.velasquez.recyclercalc.Utilities.Constants;
 import com.recycler.velasquez.recyclercalc.ViewHolders.IconViewHolder;
 
 /**
@@ -16,11 +17,11 @@ import com.recycler.velasquez.recyclercalc.ViewHolders.IconViewHolder;
 public class GridViewIconAdapter extends BaseAdapter{
 
     private Context             context;
-    private Integer[]           icons;
-    private int                 selected;
+    private String[]            icons;
+    private String              selected;
     private IconViewHolder      lastViewHolderSelected;
 
-    private static final int    NONE = -1;
+    private static final String    NONE = null;
 
 
     public GridViewIconAdapter(Context context){
@@ -29,7 +30,7 @@ public class GridViewIconAdapter extends BaseAdapter{
         loadImagesIcons();
     }
 
-    public GridViewIconAdapter(Context context, Integer[] icons){
+    public GridViewIconAdapter(Context context, String[] icons){
         this.icons = icons;
     }
 
@@ -45,7 +46,7 @@ public class GridViewIconAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int i) {
-        return icons[i];
+        return 0;
     }
 
     @Override
@@ -85,7 +86,9 @@ public class GridViewIconAdapter extends BaseAdapter{
             iconViewHolder.imageview_product_selected_icon.setVisibility(View.GONE);
 
 
-        iconViewHolder.imageview_product_icon.setImageResource(icons[position]);
+        iconViewHolder.imageview_product_icon.setImageDrawable(context.getDrawable(
+                context.getResources().getIdentifier(icons[position], Constants.DRAWABLE_DIRECTORY, context.getPackageName())
+        ));
 
         return convertView;
     }
@@ -94,16 +97,16 @@ public class GridViewIconAdapter extends BaseAdapter{
      * Fill the vector with the ids of the icon images.
      */
     private void loadImagesIcons(){
-        icons = new Integer[]{
-                R.drawable.ic_aluminum,
-                R.drawable.ic_glass,
-                R.drawable.ic_plastic,
-                R.drawable.ic_hard_plastic,
-                R.drawable.ic_cardboard,
-                R.drawable.ic_paper,
-                R.drawable.ic_milk_bottle,
-                R.drawable.ic_milk,
-                R.drawable.ic_bottle,
+        icons = new String[]{
+                "ic_aluminum",
+                "ic_glass",
+                "ic_plastic",
+                "ic_hard_plastic",
+                "ic_cardboard",
+                "ic_paper",
+                "ic_milk_bottle",
+                "ic_milk",
+                "ic_bottle",
 
         };
     }
@@ -112,7 +115,7 @@ public class GridViewIconAdapter extends BaseAdapter{
      * Return id of the selected icon
      * @return
      */
-    public Integer getIconSelectedId(){
+    public String getIconSelectedId(){
         return (selected != NONE)? selected: null;
     }
 }

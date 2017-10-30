@@ -15,6 +15,7 @@ import com.github.zagum.switchicon.SwitchIconView;
 import com.recycler.velasquez.recyclercalc.Models.ConfigurationDetail;
 import com.recycler.velasquez.recyclercalc.Models.Product;
 import com.recycler.velasquez.recyclercalc.R;
+import com.recycler.velasquez.recyclercalc.Utilities.Constants;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,9 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
     public void onBindViewHolder(final PRViewHolder holder, int position) {
         Product product = data.get(position);;
         holder.textview_product_name.setText(product.getName());
-        holder.imageview_product_icon.setImageDrawable(context.getDrawable(product.getIcon()));
+        holder.imageview_product_icon.setImageDrawable(context.getDrawable(
+                context.getResources().getIdentifier(product.getIcon(), Constants.DRAWABLE_DIRECTORY, context.getPackageName())
+        ));
         holder.switchicon_product_enabled.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
