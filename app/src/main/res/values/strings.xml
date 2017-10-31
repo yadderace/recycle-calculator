@@ -39,5 +39,11 @@
     <string name="error_product_name_invalid">Invalid Name</string>
     <string name="error_product_description_invalid">Invalid Description</string>
     <string name="error_product_not_selected_icon">Select Icon</string>
+    
+    
+    <!-- Marks -->
+    <string name="dollar">$</string>
+    <string name="per_unit">each unit</string>
+    <string name="price">Price</string>
 
 </resources>

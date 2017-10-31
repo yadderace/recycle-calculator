@@ -27,7 +27,6 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
 
     private ArrayList<Product> data;
     private Context context;
-    private static final String DRAWABLE  = "drawable";
 
 
     public ProductRatesAdapter(ArrayList<Product> data, Context context){
@@ -53,6 +52,11 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
             @Override
             public void onClick(View view) {
                 holder.switchicon_product_enabled.switchState();
+
+                if(holder.switchicon_product_enabled.isIconEnabled())
+                    holder.edittext_product_price.setEnabled(true);
+                else
+                    holder.edittext_product_price.setEnabled(false);
             }
         });
     }

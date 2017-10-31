@@ -56,9 +56,8 @@
 
                     <ImageView
                         android:id="@+id/imageview_product_icon"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_plastic"/>
+                        android:layout_width="@dimen/icon_product_size"
+                        android:layout_height="@dimen/icon_product_size"/>
 
                 </RelativeLayout>
 
@@ -89,23 +88,25 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:textColor="@color/darkGreen"
-                            android:text="$"/>
+                            android:text="@string/dollar"/>
 
                         <EditText
                             android:id="@+id/edittext_product_price"
                             android:layout_width="0dp"
                             android:layout_weight="2.5"
                             android:layout_height="wrap_content"
-                            android:hint="Precio por unidad"
-                            android:textSize="12dp"/>
+                            android:hint="@string/price"
+                            android:textSize="@dimen/edittext_text_size_small"
+                            android:inputType="numberDecimal"
+                            android:enabled="false"/>
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="2"
                             android:layout_height="wrap_content"
                             android:textColor="@color/darkGreen"
-                            android:textSize="10dp"
-                            android:text="por unidad"/>
+                            android:textSize="@dimen/edittext_text_size_small"
+                            android:text="@string/per_unit"/>
 
                     </LinearLayout>
 
