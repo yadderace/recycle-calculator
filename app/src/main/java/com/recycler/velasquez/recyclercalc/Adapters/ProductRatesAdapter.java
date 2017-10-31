@@ -26,12 +26,14 @@ import java.util.ArrayList;
 public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapter.PRViewHolder> {
 
     private ArrayList<Product> data;
+    private ArrayList<RateProduct>  rateProducts;
     private Context context;
 
 
     public ProductRatesAdapter(ArrayList<Product> data, Context context){
         this.data = data;
         this.context = context;
+        this.rateProducts = new ArrayList<RateProduct>();
     }
 
     @Override
@@ -43,8 +45,9 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
 
     @Override
     public void onBindViewHolder(final PRViewHolder holder, int position) {
-        Product product = data.get(position);;
+        final Product product = data.get(position);;
         holder.textview_product_name.setText(product.getName());
+
         holder.imageview_product_icon.setImageDrawable(context.getDrawable(
                 context.getResources().getIdentifier(product.getIcon(), Constants.DRAWABLE_DIRECTORY, context.getPackageName())
         ));
@@ -53,10 +56,30 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
             public void onClick(View view) {
                 holder.switchicon_product_enabled.switchState();
 
-                if(holder.switchicon_product_enabled.isIconEnabled())
+                if(holder.switchicon_product_enabled.isIconEnabled()) {
+
+                    holder.edittext_product_price.setText("0.0");
                     holder.edittext_product_price.setEnabled(true);
+
+                    RateProduct rateProduct = new RateProduct();
+                    rateProduct.setProduct(product);
+                    rateProduct.setProductRate(0);
+                    rateProducts.add(rateProduct);
+
+                }
                 else
+                {
+                    holder.edittext_product_price.setText("");
                     holder.edittext_product_price.setEnabled(false);
+
+                    for(int idx = 0; idx < rateProducts.size(); idx++){
+                        if(rateProducts.get(idx).getProduct().getRecId() == product.getRecId())
+                        {
+                            rateProducts.remove(idx);
+                            break;
+                        }
+                    }
+                }
             }
         });
     }
@@ -70,6 +93,7 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
 
     public static class PRViewHolder extends RecyclerView.ViewHolder{
 
@@ -85,6 +109,27 @@ public class ProductRatesAdapter extends RecyclerView.Adapter<ProductRatesAdapte
             edittext_product_price = (EditText)itemView.findViewById(R.id.edittext_product_price);
             imageview_product_icon = (ImageView) itemView.findViewById(R.id.imageview_product_icon);
             switchicon_product_enabled = (SwitchIconView) itemView.findViewById(R.id.switchicon_product_enabled);
+        }
+    }
+
+    public static class RateProduct{
+        Product     product;
+        double      productRate;
+
+        public Product getProduct() {
+            return product;
+        }
+
+        public void setProduct(Product product) {
+            this.product = product;
+        }
+
+        public double getProductRate() {
+            return productRate;
+        }
+
+        public void setProductRate(double productRate) {
+            this.productRate = productRate;
         }
     }
 }

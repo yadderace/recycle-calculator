@@ -166,17 +166,17 @@ public class NewRateDialog extends DialogFragment {
      * @return
      */
     private boolean checkData(){
-        String productName = edittext_new_rate_name.getText().toString();
-        String productDescription = edittext_new_rate_description.getText().toString();
+        String rateName = edittext_new_rate_name.getText().toString();
+        String rateDescription = edittext_new_rate_description.getText().toString();
 
-        if(!isValidName(productName)){
+        if(!isValidName(rateName)){
             textinputlayout_rate_name.setError(getString(R.string.error_product_name_invalid));
             edittext_new_rate_name.requestFocus();
             inputMethodManager.showSoftInput(edittext_new_rate_name, InputMethodManager.SHOW_IMPLICIT);
             return  false;
         }
 
-        if(!isValidDescription(productDescription)){
+        if(!isValidDescription(rateDescription)){
             textinputlayout_rate_description.setError(getString(R.string.error_product_description_invalid));
             edittext_new_rate_description.requestFocus();
             inputMethodManager.showSoftInput(edittext_new_rate_description, InputMethodManager.SHOW_IMPLICIT);
@@ -205,8 +205,17 @@ public class NewRateDialog extends DialogFragment {
         return description.length() > 0;
     }
 
+    private boolean areValidProducts(){
+        boolean valid = false;
+
+        return valid;
+    }
+
+
     public  void saveRate(){
         //TODO Get the data for the rate
+        String rateName = edittext_new_rate_name.getText().toString();
+        String rateDescription = edittext_new_rate_description.getText().toString();
 
 
         //TODO Build alert dialog to save the rate

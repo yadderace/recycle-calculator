@@ -98,7 +98,9 @@
                             android:hint="@string/price"
                             android:textSize="@dimen/edittext_text_size_small"
                             android:inputType="numberDecimal"
-                            android:enabled="false"/>
+                            android:enabled="false"
+                            android:imeOptions="actionDone"
+                            android:maxLines="1"/>
 
                         <TextView
                             android:layout_width="0dp"
