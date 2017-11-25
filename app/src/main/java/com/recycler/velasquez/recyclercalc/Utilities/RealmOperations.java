@@ -3,6 +3,8 @@ package com.recycler.velasquez.recyclercalc.Utilities;
 import com.recycler.velasquez.recyclercalc.Models.Configuration;
 import com.recycler.velasquez.recyclercalc.Models.ConfigurationDetail;
 import com.recycler.velasquez.recyclercalc.Models.Product;
+import com.recycler.velasquez.recyclercalc.Models.Rate;
+import com.recycler.velasquez.recyclercalc.Models.RateProduct;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,6 +102,104 @@ public class RealmOperations {
             products = realm.copyFromRealm(realmProducts);
         }
         return (ArrayList<Product>) products;
+    }
+
+
+    // ##############################################################################################
+    // RATE
+
+    /**
+     * Save or update a rate
+     * @param rate
+     */
+    public void saveRate(final Rate rate){
+
+        //If not found the product create a new product
+        if(getRate(rate.getRecId()) == null)
+        {
+            Number currentMaxId = realm.where(Rate.class).max("recId");
+
+            int nextId;
+            if(currentMaxId == null)
+                nextId = 1;
+            else
+                nextId = currentMaxId.intValue() + 1;
+
+            rate.setRecId(nextId);
+
+            for(int idx = 0; idx < rate.getRateProducts().size(); idx++) {
+                int recId = saveRateProduct(rate.getRateProducts().get(idx));
+                rate.getRateProducts().get(idx).setRecId(recId);
+            }
+        }
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(rate);
+            }
+        });
+    }
+
+    /**
+     * Get the rate according the recId
+     * @param rateRecId
+     * @return
+     */
+    public Rate getRate(int rateRecId){
+        Rate rate = null;
+        Rate realmRate = realm.where(Rate.class).equalTo("recId", rateRecId).findFirst();
+        if(realmRate != null){
+            rate = realm.copyFromRealm(realmRate);
+        }
+        return rate;
+    }
+
+    // ##############################################################################################
+    // RATEPRODUCT
+
+    /**
+     * Save or update a rate product
+     * @param rateProduct
+     */
+    public int saveRateProduct(final RateProduct rateProduct){
+
+        //If not found the product create a new product
+        if(getRateProduct(rateProduct.getRecId()) == null)
+        {
+            Number currentMaxId = realm.where(RateProduct.class).max("recId");
+
+            int nextId;
+            if(currentMaxId == null)
+                nextId = 1;
+            else
+                nextId = currentMaxId.intValue() + 1;
+
+            rateProduct.setRecId(nextId);
+        }
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(rateProduct);
+            }
+        });
+
+        return rateProduct.getRecId();
+    }
+
+    /**
+     * Get the rate product according the recId
+     * @param rateProductRecId
+     * @return
+     */
+    public RateProduct getRateProduct(int rateProductRecId){
+        RateProduct rateProduct = null;
+        RateProduct realmRateProduct = realm.where(RateProduct.class).equalTo("recId", rateProductRecId).findFirst();
+        if(realmRateProduct != null){
+            rateProduct = realm.copyFromRealm(realmRateProduct);
+        }
+        return rateProduct;
     }
 
     // ##############################################################################################
